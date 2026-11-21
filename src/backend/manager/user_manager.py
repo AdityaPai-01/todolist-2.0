@@ -1,4 +1,4 @@
-from model.user import User
+from backend.model.user import User
 import logging
 import shutil
 from pathlib import Path

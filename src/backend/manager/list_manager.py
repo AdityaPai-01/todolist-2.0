@@ -1,5 +1,5 @@
 import uuid, logging
-from manager.task_manager import TaskManager
+from backend.manager.task_manager import TaskManager
 
 logger = logging.getLogger(__name__)
 
