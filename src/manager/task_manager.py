@@ -70,47 +70,6 @@ class TaskManager:
         if filter == None:
             return [str(t) for t in self.tasklist] if self.tasklist else ['Your task list is empty!']
 
-    # Returns relevant data about the task objects to be stored in local storage
-    def export_data(self):
-        try:
-            data = {}
-            for task in self.tasklist:
-                task_dict = task.to_dict()
-                data[str(task_dict['task_id'])] = {
-                    "task_id": str(task_dict['task_id']),
-                    "task_name": task_dict['task_name'],
-                    "task_status": task_dict['task_status'],
-                    "task_filter": task_dict["task_filter"],
-                    "task_description": task_dict["task_description"]
-                }
-            logger.info(f"TASK DATA EXPORT: Data exported successfully")
-            return {"message": None,
-                    "status": True,
-                    "data": data}
-
-        except Exception as e:
-            logger.error(f"TASK DATA EXPORT: Failed to export data: {type(e).__name__}:{e}")
-            return {"message": "something went wrong.",
-                    "status": False,
-                    "data": {}}
-
-
-    # Creates task objects from the extracted data from local storage, adds it to the list
-    def import_data(self, data_dir):
-        try:
-            for t_id, task_details in data_dir.items():
-                status = False if task_details["task_status"] == '⭕' else True
-                task_obj = Task(task_id=t_id, taskname=task_details["task_name"], is_completed=status, task_filter=task_details["task_filter"], task_description=task_details["task_description"])
-                self.tasklist.append(task_obj)
-            logger.info(f"TASK DATA IMPORT: Data imported successfully.")
-            return {"message": None,
-                    "status": True}
-
-        except Exception as e:
-            logger.error(f"TASK DATA IMPORT: Failed to import data: {type(e).__name__}:{e}")
-            return {"message": "something went wrong.",
-                    "status": False}
-
     # Marks the given task as complete, identified using its title
     def mark_done(self, title: str):
         for task in self.tasklist:
