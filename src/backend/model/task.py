@@ -19,7 +19,7 @@ class Task:
     def to_dict(self):
         return {"task_id": self.task_id, 
                 "task_name":self.taskname, 
-                "task_status":'✅' if self.is_completed else '⭕',
+                "task_status": True if self.is_completed else False,
                 'task_filter': self.task_filter,
                 'task_description':self.task_description}
 
